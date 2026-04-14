@@ -1,80 +1,88 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
-  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { to: "/", label: "Home" },
-    { to: "/work", label: "Work" },
-    { to: "/about", label: "About" },
-    { to: "/styleguide", label: "Styleguide" },
-    { to: "/contact", label: "Contact" },
+    { href: "#about", label: "About" },
+    { href: "#products", label: "Products" },
+    { href: "#industries", label: "Industries" },
+    { href: "#why-us", label: "Why Us" },
+    { href: "#contact", label: "Contact" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const scrollTo = (href: string) => {
+    setMobileMenuOpen(false);
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-500">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-background/95 backdrop-blur-md shadow-sm" : "bg-transparent"}`}>
+      <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="font-display text-xl tracking-wide hover:opacity-70 transition-opacity duration-300">
-            Sofia Martini
-          </Link>
+          <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3">
+            <img src={logo} alt="Parth Fuel Corporation" className="h-10 w-10" />
+            <span className={`font-bold text-lg hidden sm:block transition-colors ${scrolled ? "text-foreground" : "text-white"}`}>
+              Parth Fuel Corporation
+            </span>
+          </a>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-sm tracking-wide transition-all duration-300 hover:opacity-60 hover:tracking-wider ${
-                  isActive(link.to) ? "opacity-100" : "opacity-70"
-                }`}
+              <button
+                key={link.href}
+                onClick={() => scrollTo(link.href)}
+                className={`text-sm font-medium tracking-wide hover:opacity-70 ${scrolled ? "text-foreground" : "text-white"}`}
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
+            <button
+              onClick={() => scrollTo("#contact")}
+              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:opacity-90"
+            >
+              Get Quote
+            </button>
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 transition-transform duration-300 hover:scale-110"
+            className={`md:hidden p-2 ${scrolled ? "text-foreground" : "text-white"}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            <div className={`transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : 'rotate-0'}`}>
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </div>
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div 
-        className={`md:hidden absolute top-full left-0 right-0 bg-background border-b border-border overflow-hidden transition-all duration-500 ease-out ${
-          mobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 border-b-0'
-        }`}
-      >
-        <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
-          {navLinks.map((link, index) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`text-lg tracking-wide transition-all duration-300 hover:opacity-60 hover:translate-x-2 ${
-                isActive(link.to) ? "opacity-100" : "opacity-70"
-              }`}
-              style={{ 
-                transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
-              }}
+      <div className={`md:hidden bg-background border-b border-border overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+        <nav className="container mx-auto px-6 py-4 flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => scrollTo(link.href)}
+              className="text-left text-foreground py-2 text-base font-medium hover:text-primary"
             >
               {link.label}
-            </Link>
+            </button>
           ))}
+          <button
+            onClick={() => scrollTo("#contact")}
+            className="bg-primary text-primary-foreground px-5 py-3 rounded-md text-sm font-semibold mt-2"
+          >
+            Get Quote
+          </button>
         </nav>
       </div>
     </header>

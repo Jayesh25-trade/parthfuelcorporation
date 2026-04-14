@@ -1,222 +1,294 @@
 import Layout from "@/components/Layout";
-import ImageWithCaption from "@/components/ImageWithCaption";
-import { Link } from "react-router-dom";
-
-const heroImage = "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1920";
-
-const sofiaImage = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=85";
-
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=85",
-    alt: "Fresh pasta with herbs",
-    caption: "Fresh basil, San Marzano tomatoes",
-    subcaption: "Warm afternoon light",
-    aspectRatio: "landscape" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&q=85",
-    alt: "Artisan pizza",
-    caption: "Wood-fired, 48-hour fermentation",
-    subcaption: "Earthy tones, natural texture",
-    aspectRatio: "portrait" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1200&q=85",
-    alt: "Fresh salad composition",
-    caption: "Garden vegetables, edible flowers",
-    subcaption: "Morning dew, soft diffused light",
-    aspectRatio: "square" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=1200&q=85",
-    alt: "Gourmet burger",
-    caption: "Brioche, aged cheddar, caramelized onions",
-    subcaption: "Controlled studio lighting",
-    aspectRatio: "landscape" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=1200&q=85",
-    alt: "Fresh croissants",
-    caption: "French butter, 72 layers",
-    subcaption: "Golden morning warmth",
-    aspectRatio: "wide" as const,
-  },
-];
+import { Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, Phone, Mail, MapPin, ChevronRight } from "lucide-react";
+import heroImg from "@/assets/briquettes-stack.jpg";
+import factoryImg from "@/assets/factory.jpg";
+import truckImg from "@/assets/truck-loading.jpg";
+import rawImg from "@/assets/raw-material.jpg";
 
 const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative h-screen w-screen flex items-center justify-center overflow-hidden" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '-5rem', width: '100vw' }}>
-        {/* Background Image */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Food photography hero"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
+          <img src={heroImg} alt="Biomass briquettes" className="w-full h-full object-cover" width={1920} height={1080} />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 text-center text-primary-foreground px-6 max-w-4xl">
-          <p 
-            className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-          >
-            Food Photography
-          </p>
-          <h1 
-            className="font-display text-4xl md:text-6xl lg:text-7xl mb-6 opacity-0 animate-fade-in leading-tight"
-            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-          >
-            Transforming ingredients into visual stories that sell
-          </h1>
-          <p 
-            className="text-lg md:text-xl font-body tracking-wide opacity-0 animate-fade-in max-w-2xl mx-auto"
-            style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
-          >
-            Milan-based photographer crafting images that make you taste with your eyes.
-          </p>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: "1.2s", animationFillMode: "forwards" }}>
-          <div className="w-px h-16 bg-primary-foreground/50 animate-pulse" />
-        </div>
-      </section>
-
-      {/* Intro Text */}
-      <section className="section-breathing">
-        <div className="container mx-auto px-6 md:px-12 lg:px-20">
-          <div className="max-w-3xl">
-            <p className="heading-section text-muted-foreground leading-relaxed">
-              I create images that make you taste with your eyes. Every photograph tells a story of 
-              <span className="text-foreground"> craft</span>, 
-              <span className="text-foreground"> passion</span>, and 
-              <span className="text-foreground"> flavor</span>.
+        <div className="relative z-10 container mx-auto px-6 lg:px-12 py-32">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-2 mb-6 opacity-0 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}>
+              <Leaf className="text-green-400" size={20} />
+              <span className="text-green-400 text-sm font-semibold tracking-wider uppercase">Eco-friendly · Cost-effective · High Performance</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 opacity-0 animate-fade-in" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>
+              Sustainable Fuel.<br />
+              <span className="text-green-400">Reliable Supply.</span>
+            </h1>
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg opacity-0 animate-fade-in" style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}>
+              High-quality biomass briquettes for industrial energy needs. Manufactured from agro-waste with 900 MT monthly capacity.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Asymmetric Gallery */}
-      <section className="pb-32">
-        <div className="container mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-            {/* Row 1 - Large left, small right */}
-            <div className="md:col-span-7">
-              <ImageWithCaption
-                src={galleryImages[0].src}
-                alt={galleryImages[0].alt}
-                caption={galleryImages[0].caption}
-                subcaption={galleryImages[0].subcaption}
-                aspectRatio="landscape"
-                priority
-                floatDelay={0}
-              />
-            </div>
-            <div className="md:col-span-5 md:pt-24">
-              <ImageWithCaption
-                src={galleryImages[1].src}
-                alt={galleryImages[1].alt}
-                caption={galleryImages[1].caption}
-                subcaption={galleryImages[1].subcaption}
-                aspectRatio="portrait"
-                floatDelay={1}
-              />
-            </div>
-
-            {/* Row 2 - Full width breathing space then offset */}
-            <div className="md:col-span-12 py-12" />
-            
-            <div className="md:col-span-4 md:col-start-2">
-              <ImageWithCaption
-                src={galleryImages[2].src}
-                alt={galleryImages[2].alt}
-                caption={galleryImages[2].caption}
-                subcaption={galleryImages[2].subcaption}
-                aspectRatio="square"
-                floatDelay={2}
-              />
-            </div>
-            <div className="md:col-span-6 md:col-start-7 md:pt-16">
-              <ImageWithCaption
-                src={galleryImages[3].src}
-                alt={galleryImages[3].alt}
-                caption={galleryImages[3].caption}
-                subcaption={galleryImages[3].subcaption}
-                aspectRatio="landscape"
-                floatDelay={3}
-              />
-            </div>
-
-            {/* Row 3 - Wide centered */}
-            <div className="md:col-span-12 py-8" />
-            
-            <div className="md:col-span-10 md:col-start-2">
-              <ImageWithCaption
-                src={galleryImages[4].src}
-                alt={galleryImages[4].alt}
-                caption={galleryImages[4].caption}
-                subcaption={galleryImages[4].subcaption}
-                aspectRatio="wide"
-                floatDelay={4}
-              />
+            <div className="flex flex-wrap gap-4 opacity-0 animate-fade-in" style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}>
+              <a href="#contact" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold text-base hover:opacity-90 flex items-center gap-2">
+                Get a Quote <ChevronRight size={18} />
+              </a>
+              <a href="#products" className="border border-white/30 text-white px-8 py-4 rounded-md font-semibold text-base hover:bg-white/10">
+                View Products
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Sofia Section */}
-      <section className="section-breathing border-t border-border">
-        <div className="container mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
-            {/* Photo */}
-            <div className="md:col-span-5">
-              <div className="aspect-[3/4] overflow-hidden bg-muted floating-item">
-                <img
-                  src={sofiaImage}
-                  alt="Sofia Martini"
-                  className="w-full h-full object-cover"
-                />
+      {/* Stats Bar */}
+      <section className="bg-primary text-primary-foreground py-6">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[
+              { value: "900 MT", label: "Monthly Capacity" },
+              { value: "3800+", label: "kcal/kg GCV" },
+              { value: "< 10%", label: "Moisture Content" },
+              { value: "Since 2022", label: "Established" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-2xl md:text-3xl font-bold">{stat.value}</div>
+                <div className="text-sm text-primary-foreground/80 mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Us */}
+      <section id="about" className="py-20 md:py-28">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">About Us</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Powering Industries with Green Energy</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                Parth Fuel Corporation, established in 2022 and based in Maharashtra, is a growing manufacturer and supplier of biomass briquettes. We specialize in converting agro-waste materials like sawdust and groundnut shells into high-efficiency solid fuel.
+              </p>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                With a monthly production capacity of 900 MT, we are committed to delivering consistent quality, timely supply, and sustainable energy solutions to industries across India.
+              </p>
+            </div>
+            <div className="relative">
+              <img src={factoryImg} alt="Manufacturing facility" className="rounded-lg shadow-lg w-full" loading="lazy" width={1920} height={1080} />
+              <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground p-5 rounded-lg shadow-lg">
+                <div className="text-2xl font-bold">900 MT</div>
+                <div className="text-sm text-primary-foreground/80">Monthly Capacity</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Content */}
-            <div className="md:col-span-6 md:col-start-7">
-              <p className="micro-caption mb-6">The Photographer</p>
-              <h2 className="heading-editorial mb-6">Sofia Martini</h2>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                Milan-based food photographer with over 8 years of experience 
-                capturing the essence of gastronomy. Specializing in natural light and 
-                visual storytelling for award-winning brands and restaurants.
-              </p>
-              <Link
-                to="/about"
-                className="inline-block px-8 py-4 border border-foreground text-foreground text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors"
-              >
-                Learn More
-              </Link>
+      {/* Products */}
+      <section id="products" className="py-20 md:py-28 bg-card">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Products</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Biomass Briquettes</h2>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <img src={rawImg} alt="Raw materials" className="rounded-lg shadow-lg w-full" loading="lazy" width={1920} height={1080} />
+            <div>
+              <ul className="space-y-5">
+                {[
+                  { icon: Leaf, text: "Made from sawdust, groundnut shells & agro-waste" },
+                  { icon: Flame, text: "High GCV (>3800 kcal/kg) for efficient combustion" },
+                  { icon: Droplets, text: "Low moisture & ash content" },
+                  { icon: Ruler, text: "Uniform size: 90mm / 90×150mm" },
+                  { icon: Package, text: "Packaging: 50kg / Jumbo Bags / Loose" },
+                  { icon: Gauge, text: "Suitable for industrial boilers" },
+                ].map((item) => (
+                  <li key={item.text} className="flex items-start gap-4">
+                    <div className="bg-primary/10 p-2.5 rounded-lg shrink-0">
+                      <item.icon className="text-primary" size={20} />
+                    </div>
+                    <span className="text-foreground text-base">{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Specs Table */}
+          <div className="mt-16 bg-background rounded-xl p-8 shadow-sm border border-border">
+            <h3 className="text-xl font-bold mb-6 text-center">Technical Specifications</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+              {[
+                { label: "GCV", value: "3800+ kcal/kg" },
+                { label: "Moisture", value: "< 10%" },
+                { label: "Ash Content", value: "< 7–9%" },
+                { label: "Size", value: "90mm / 90×150mm" },
+                { label: "Packaging", value: "50kg / Jumbo / Loose" },
+              ].map((spec) => (
+                <div key={spec.label} className="text-center p-4 rounded-lg bg-card">
+                  <div className="text-sm text-muted-foreground mb-1">{spec.label}</div>
+                  <div className="text-lg font-bold text-foreground">{spec.value}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-breathing border-t border-border">
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 text-center">
-          <h2 className="heading-editorial mb-6">Let's create something beautiful</h2>
-          <p className="text-muted-foreground mb-10 max-w-md mx-auto">
-            Interested in working together? I'd love to hear about your project.
-          </p>
-          <Link
-            to="/contact"
-            className="inline-block px-8 py-4 bg-foreground text-background text-sm tracking-wider uppercase hover:opacity-80 transition-opacity"
-          >
-            Get in Touch
-          </Link>
+      {/* Industries */}
+      <section id="industries" className="py-20 md:py-28">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Industries We Serve</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Trusted Across Sectors</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {[
+              { icon: Factory, label: "Food Processing" },
+              { icon: FlaskConical, label: "Chemical Industries" },
+              { icon: Shirt, label: "Textile Mills" },
+              { icon: FileText, label: "Paper & Packaging" },
+              { icon: Gauge, label: "Boiler Industries" },
+            ].map((ind) => (
+              <div key={ind.label} className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-md hover:-translate-y-1 transition-all">
+                <div className="bg-primary/10 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ind.icon className="text-primary" size={24} />
+                </div>
+                <p className="font-semibold text-sm">{ind.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Supply Capability */}
+      <section className="py-20 md:py-28 bg-card">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Supply Capability</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Large-Scale, Reliable Delivery</h2>
+              <div className="space-y-6">
+                {[
+                  { icon: Gauge, title: "900 MT Monthly Capacity", desc: "Consistent large-volume production" },
+                  { icon: Truck, title: "Pan-Maharashtra Supply", desc: "Bulk supply across Maharashtra & nearby states" },
+                  { icon: ShieldCheck, title: "Quality Certified", desc: "Consistent quality with test certificates" },
+                  { icon: Clock, title: "Timely Logistics", desc: "Reliable road transport for on-time delivery" },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="bg-primary/10 p-3 rounded-lg shrink-0">
+                      <item.icon className="text-primary" size={22} />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">{item.title}</h4>
+                      <p className="text-muted-foreground text-sm">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <img src={truckImg} alt="Truck loading" className="rounded-lg shadow-lg w-full" loading="lazy" width={1920} height={1080} />
+          </div>
+        </div>
+      </section>
+
+      {/* Clients */}
+      <section className="py-20 md:py-28">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Clients</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Trusted by Industry Leaders</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              "Siddharth Carbochem Products Ltd",
+              "Rishabh Metal and Chemicals Pvt. Ltd.",
+              "Sahyadri Industries",
+            ].map((client) => (
+              <div key={client} className="bg-card border border-border rounded-xl p-8 text-center hover:shadow-md transition-shadow">
+                <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BadgeCheck className="text-primary" size={24} />
+                </div>
+                <p className="font-semibold text-foreground">{client}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section id="why-us" className="py-20 md:py-28 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="text-primary-foreground/70 font-semibold text-sm tracking-wider uppercase mb-3">Why Choose Us</p>
+            <h2 className="text-3xl md:text-4xl font-bold">The Parth Fuel Advantage</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {[
+              { icon: Leaf, title: "Eco-Friendly", desc: "Green fuel alternative" },
+              { icon: IndianRupee, title: "Competitive Pricing", desc: "Best value for quality" },
+              { icon: Flame, title: "Consistent Quality", desc: "Strict quality control" },
+              { icon: Truck, title: "Timely Delivery", desc: "Reliable logistics" },
+              { icon: ShieldCheck, title: "Trusted Partner", desc: "Industry-proven reliability" },
+            ].map((item) => (
+              <div key={item.title} className="text-center p-6 rounded-xl bg-primary-foreground/10 hover:bg-primary-foreground/15 transition-colors">
+                <item.icon className="mx-auto mb-3" size={28} />
+                <h4 className="font-semibold mb-1">{item.title}</h4>
+                <p className="text-sm text-primary-foreground/70">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-20 md:py-28">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Contact Us</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Discuss Your Fuel Needs</h2>
+              <p className="text-muted-foreground text-lg mb-8">
+                Reach out for bulk orders, pricing, or any queries about our biomass briquettes.
+              </p>
+              <div className="space-y-5">
+                <a href="tel:+919881125511" className="flex items-center gap-4 text-foreground hover:text-primary">
+                  <div className="bg-primary/10 p-3 rounded-lg"><Phone className="text-primary" size={20} /></div>
+                  <span className="text-lg">+91 9881125511</span>
+                </a>
+                <a href="mailto:parthfuelcorporation23@gmail.com" className="flex items-center gap-4 text-foreground hover:text-primary">
+                  <div className="bg-primary/10 p-3 rounded-lg"><Mail className="text-primary" size={20} /></div>
+                  <span className="text-lg break-all">parthfuelcorporation23@gmail.com</span>
+                </a>
+                <div className="flex items-center gap-4 text-foreground">
+                  <div className="bg-primary/10 p-3 rounded-lg"><MapPin className="text-primary" size={20} /></div>
+                  <span className="text-lg">Shegaon, Maharashtra, India</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-8">
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Name</label>
+                  <input type="text" className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Your name" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Email</label>
+                  <input type="email" className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring" placeholder="your@email.com" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Phone</label>
+                  <input type="tel" className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring" placeholder="+91 ..." />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Message</label>
+                  <textarea rows={4} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" placeholder="Tell us about your requirements..." />
+                </div>
+                <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-md font-semibold hover:opacity-90">
+                  Send Inquiry
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
