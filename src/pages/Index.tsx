@@ -88,47 +88,100 @@ const Index = () => {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Products</p>
-            <h2 className="text-3xl md:text-4xl font-bold">Biomass Briquettes</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Fuel Solutions for Every Need</h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">We supply both eco-friendly biomass briquettes and high-performance industrial coal for diverse energy needs.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <img src={rawImg} alt="Raw materials" className="rounded-lg shadow-lg w-full" loading="lazy" width={1920} height={1080} />
-            <div>
-              <ul className="space-y-5">
+
+          {/* Biomass Briquettes */}
+          <div className="mb-20">
+            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+              <Leaf className="text-primary" size={28} /> Biomass Briquettes
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <img src={rawImg} alt="Raw materials" className="rounded-lg shadow-lg w-full" loading="lazy" width={1920} height={1080} />
+              <div>
+                <ul className="space-y-5">
+                  {[
+                    { icon: Leaf, text: "Made from sawdust, groundnut shells & agro-waste" },
+                    { icon: Flame, text: "High GCV (>3800 kcal/kg) for efficient combustion" },
+                    { icon: Droplets, text: "Low moisture & ash content" },
+                    { icon: Ruler, text: "Uniform size: 90mm / 90×150mm" },
+                    { icon: Package, text: "Packaging: 50kg / Jumbo Bags / Loose" },
+                    { icon: Gauge, text: "Suitable for industrial boilers" },
+                  ].map((item) => (
+                    <li key={item.text} className="flex items-start gap-4">
+                      <div className="bg-primary/10 p-2.5 rounded-lg shrink-0">
+                        <item.icon className="text-primary" size={20} />
+                      </div>
+                      <span className="text-foreground text-base">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            {/* Briquette Specs */}
+            <div className="mt-10 bg-background rounded-xl p-8 shadow-sm border border-border">
+              <h4 className="text-lg font-bold mb-6 text-center">Briquette Specifications</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
                 {[
-                  { icon: Leaf, text: "Made from sawdust, groundnut shells & agro-waste" },
-                  { icon: Flame, text: "High GCV (>3800 kcal/kg) for efficient combustion" },
-                  { icon: Droplets, text: "Low moisture & ash content" },
-                  { icon: Ruler, text: "Uniform size: 90mm / 90×150mm" },
-                  { icon: Package, text: "Packaging: 50kg / Jumbo Bags / Loose" },
-                  { icon: Gauge, text: "Suitable for industrial boilers" },
-                ].map((item) => (
-                  <li key={item.text} className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-2.5 rounded-lg shrink-0">
-                      <item.icon className="text-primary" size={20} />
-                    </div>
-                    <span className="text-foreground text-base">{item.text}</span>
-                  </li>
+                  { label: "GCV", value: "3800+ kcal/kg" },
+                  { label: "Moisture", value: "< 10%" },
+                  { label: "Ash Content", value: "< 7–9%" },
+                  { label: "Size", value: "90mm / 90×150mm" },
+                  { label: "Packaging", value: "50kg / Jumbo / Loose" },
+                ].map((spec) => (
+                  <div key={spec.label} className="text-center p-4 rounded-lg bg-card">
+                    <div className="text-sm text-muted-foreground mb-1">{spec.label}</div>
+                    <div className="text-lg font-bold text-foreground">{spec.value}</div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
 
-          {/* Specs Table */}
-          <div className="mt-16 bg-background rounded-xl p-8 shadow-sm border border-border">
-            <h3 className="text-xl font-bold mb-6 text-center">Technical Specifications</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
-              {[
-                { label: "GCV", value: "3800+ kcal/kg" },
-                { label: "Moisture", value: "< 10%" },
-                { label: "Ash Content", value: "< 7–9%" },
-                { label: "Size", value: "90mm / 90×150mm" },
-                { label: "Packaging", value: "50kg / Jumbo / Loose" },
-              ].map((spec) => (
-                <div key={spec.label} className="text-center p-4 rounded-lg bg-card">
-                  <div className="text-sm text-muted-foreground mb-1">{spec.label}</div>
-                  <div className="text-lg font-bold text-foreground">{spec.value}</div>
+          {/* Industrial Coal */}
+          <div>
+            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+              <Flame className="text-accent-foreground" size={28} /> Industrial Coal
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <ul className="space-y-5">
+                  {[
+                    { icon: Flame, text: "High-quality coal suitable for industrial boilers" },
+                    { icon: Gauge, text: "GCV: ~5400 kcal/kg (±200) for efficient combustion" },
+                    { icon: Droplets, text: "Moisture: ~35% (±3%)" },
+                    { icon: Package, text: "Ash Content: ~8% (±1%)" },
+                    { icon: Ruler, text: "Size: 25–50 mm" },
+                    { icon: ShieldCheck, text: "Consistent performance and reliable combustion" },
+                    { icon: Factory, text: "Ideal for continuous industrial operations" },
+                  ].map((item) => (
+                    <li key={item.text} className="flex items-start gap-4">
+                      <div className="bg-primary/10 p-2.5 rounded-lg shrink-0">
+                        <item.icon className="text-primary" size={20} />
+                      </div>
+                      <span className="text-foreground text-base">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Coal Specs */}
+              <div className="bg-background rounded-xl p-8 shadow-sm border border-border">
+                <h4 className="text-lg font-bold mb-6 text-center">Coal Specifications</h4>
+                <div className="grid grid-cols-2 gap-6">
+                  {[
+                    { label: "GCV", value: "~5400 kcal/kg" },
+                    { label: "Moisture", value: "~35% (±3%)" },
+                    { label: "Ash Content", value: "~8% (±1%)" },
+                    { label: "Size", value: "25–50 mm" },
+                  ].map((spec) => (
+                    <div key={spec.label} className="text-center p-4 rounded-lg bg-card">
+                      <div className="text-sm text-muted-foreground mb-1">{spec.label}</div>
+                      <div className="text-lg font-bold text-foreground">{spec.value}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
@@ -221,14 +274,16 @@ const Index = () => {
           <div className="text-center mb-16">
             <p className="text-primary-foreground/70 font-semibold text-sm tracking-wider uppercase mb-3">Why Choose Us</p>
             <h2 className="text-3xl md:text-4xl font-bold">The Parth Fuel Advantage</h2>
+            <p className="text-primary-foreground/70 mt-3 max-w-2xl mx-auto">We supply both eco-friendly biomass briquettes and high-performance industrial coal for diverse energy needs.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: Leaf, title: "Eco-Friendly", desc: "Green fuel alternative" },
-              { icon: IndianRupee, title: "Competitive Pricing", desc: "Best value for quality" },
-              { icon: Flame, title: "Consistent Quality", desc: "Strict quality control" },
-              { icon: Truck, title: "Timely Delivery", desc: "Reliable logistics" },
-              { icon: ShieldCheck, title: "Trusted Partner", desc: "Industry-proven reliability" },
+              { icon: Flame, title: "Multiple Fuel Options", desc: "Briquettes + Coal for diverse energy needs" },
+              { icon: Truck, title: "Reliable Bulk Supply", desc: "900 MT monthly capacity with on-time delivery" },
+              { icon: ShieldCheck, title: "Consistent Quality", desc: "Strict quality control with test certificates" },
+              { icon: Gauge, title: "Strong Logistics", desc: "Pan-Maharashtra road transport network" },
+              { icon: IndianRupee, title: "Competitive Pricing", desc: "Best value without compromising quality" },
+              { icon: Leaf, title: "Eco-Friendly Options", desc: "Green biomass fuel from agro-waste" },
             ].map((item) => (
               <div key={item.title} className="text-center p-6 rounded-xl bg-primary-foreground/10 hover:bg-primary-foreground/15 transition-colors">
                 <item.icon className="mx-auto mb-3" size={28} />
