@@ -32,7 +32,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3">
             <img src={logo} alt="Parth Fuel Corporation" className="h-10 w-10" />
-            <span className={`font-bold text-lg hidden sm:block transition-colors ${scrolled ? "text-foreground" : "text-white"}`}>
+            <span className={`font-bold text-lg block transition-colors ${scrolled ? "text-foreground" : "text-white"}`}>
               Parth Fuel Corporation
             </span>
           </a>
