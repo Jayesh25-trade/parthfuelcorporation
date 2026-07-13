@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import RouteMap from "@/components/RouteMap";
 import { 
   Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, 
   FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, 
@@ -654,12 +653,47 @@ ${name}`;
       {/* Our Presence (Logistics & Port map) */}
       <section id="presence" className="py-20 md:py-28 bg-card scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Presence</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Interactive Logistics & Route Sourcing</h2>
-            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">We manage bulk shipping routes and inland transit channels to supply your manufacturing clusters securely.</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Presence</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold">Serving Key Industrial Hubs</h2>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                With corporate offices in Shegaon, Maharashtra, we have created an expansive logistics and port linkage map. We manage client deliveries across Maharashtra, Tamil Nadu, and surrounding industrial states, utilizing major port entries for importing high-grade Indonesian coal.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                {["Shegaon (HQ)", "Khamgaon Unit", "Wani", "Nagpur", "Akola", "Amravati"].map((city) => (
+                  <div key={city} className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border font-semibold text-sm">
+                    <MapPin className="text-primary shrink-0" size={16} />
+                    <span>{city}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-2 pt-4">
+                <h4 className="font-bold text-sm uppercase text-foreground">Import & Port Linkages</h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Dharamtar Port", "Jaigad Port", "Dighi Port"].map((port) => (
+                    <span key={port} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                      {port}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* Godown Video */}
+            <div className="rounded-xl overflow-hidden shadow-lg bg-black relative group aspect-video">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
+                src="/godown-video.mp4"
+              />
+              <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider z-10">
+                Godown Operations Video
+              </div>
+            </div>
           </div>
-          <RouteMap />
         </div>
       </section>
 
