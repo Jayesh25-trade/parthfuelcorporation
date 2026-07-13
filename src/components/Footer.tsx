@@ -29,10 +29,13 @@ const Footer = () => {
             <nav className="flex flex-col gap-3">
               {[
                 { href: "#about", label: "About Us" },
+                { href: "#services", label: "Services" },
                 { href: "#products", label: "Products" },
-                { href: "#industries", label: "Industries" },
                 { href: "#why-us", label: "Why Choose Us" },
-                { href: "#contact", label: "Contact" },
+                { href: "#presence", label: "Our Presence" },
+                { href: "#clients", label: "Our Clients" },
+                { href: "#careers", label: "Careers" },
+                { href: "#contact", label: "Contact Us" },
               ].map((link) => (
                 <button
                   key={link.href}
