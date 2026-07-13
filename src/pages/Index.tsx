@@ -8,24 +8,62 @@ import {
 import { toast } from "sonner";
 
 // Existing static assets
-import factoryImg from "@/assets/factory.jpg";
 import truckImg from "@/assets/truck-loading.jpg";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"briquettes" | "pellets" | "indonesian-coal">("briquettes");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  // Form handlers
+  // Form handlers with mailto redirect
   const handleInquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    toast.success(`Inquiry sent successfully for ${formData.get("fuelType") || "fuel solutions"}!`);
+    const name = formData.get("userName");
+    const email = formData.get("userEmail");
+    const phone = formData.get("userPhone");
+    const fuelType = formData.get("fuelType");
+    const message = formData.get("userMsg");
+
+    const subject = encodeURIComponent(`Fuel Enquiry from ${name} - Parth Fuel Corporation`);
+    const body = encodeURIComponent(
+      `Hello Parth Fuel Corporation,\n\n` +
+      `I would like to make an enquiry regarding fuel solutions.\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      `Phone: ${phone}\n` +
+      `Fuel Interest: ${fuelType}\n` +
+      `Monthly Requirement / Message:\n${message}\n\n` +
+      `Regards,\n${name}`
+    );
+
+    window.location.href = `mailto:parthfuelcorporation23@gmail.com?subject=${subject}&body=${body}`;
+    toast.success("Opening your mail app to send the enquiry...");
     e.currentTarget.reset();
   };
 
   const handleCareerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Application submitted successfully! Our team will contact you soon.");
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("careerName");
+    const email = formData.get("careerEmail");
+    const phone = formData.get("careerPhone");
+    const position = formData.get("careerPosition");
+    const message = formData.get("careerMessage");
+
+    const subject = encodeURIComponent(`Job Application: ${position} - ${name}`);
+    const body = encodeURIComponent(
+      `Hello Parth Fuel Corporation Hiring Team,\n\n` +
+      `I would like to submit my application for the following position.\n\n` +
+      `Full Name: ${name}\n` +
+      `Email Address: ${email}\n` +
+      `Contact Number: ${phone}\n` +
+      `Desired Position: ${position}\n` +
+      `Cover Message / Qualifications:\n${message}\n\n` +
+      `Regards,\n${name}`
+    );
+
+    window.location.href = `mailto:parthfuelcorporation23@gmail.com?subject=${subject}&body=${body}`;
+    toast.success("Opening your mail app to send the job application...");
     e.currentTarget.reset();
   };
 
@@ -88,7 +126,7 @@ const Index = () => {
             {[
               { value: "900 MT", label: "Monthly Capacity" },
               { value: "5800+", label: "Indo Coal GCV (kcal)" },
-              { value: "4000+", label: "Briquette GCV (kcal)" },
+              { value: "3500+", label: "Briquette GCV (kcal)" },
               { value: "Since 2022", label: "Industry Service" },
             ].map((stat) => (
               <div key={stat.label} className="p-2 border-r last:border-r-0 border-primary-foreground/10">
@@ -112,7 +150,7 @@ const Index = () => {
             <div className="lg:col-span-7 space-y-6">
               <h3 className="text-2xl font-bold text-foreground">Who We Are</h3>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Parth Fuel Corporation, established in 2022 and based in Shegaon, Maharashtra, is a dedicated manufacturer and supplier of solid fuels. We specialize in producing eco-friendly biomass briquettes and pellets from high-quality agro-waste (such as sawdust, groundnut shells, mustard husk, and soya husk) and supplying premium-grade imported Indonesian coal.
+                Parth Fuel Corporation, established in 2022 and based in Shegaon, Maharashtra, is a dedicated manufacturer and supplier of solid fuels. We specialize in producing eco-friendly biomass briquettes and pellets from high-quality agro-waste (such as Soyabean and Corn raw materials) and supplying premium-grade imported Indonesian coal.
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 By integrating strict quality assessments, direct port linkages, and a versatile logistics model, we facilitate smooth fuel procurement for major boilers, paper mills, textiles, and chemical plants across Maharashtra, Tamil Nadu, and other industrial states.
@@ -181,7 +219,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
-              { icon: Factory, title: "Agro-Waste Processing", desc: "Converting organic sawdust, mustard husk, groundnut shell, and soya husk into dense, high-GCV bio-energy briquettes and pellets." },
+              { icon: Factory, title: "Agro-Waste Processing", desc: "Converting organic soyabean and corn inputs into dense, high-GCV bio-energy briquettes, alongside sawdust and soya pellets." },
               { icon: Truck, title: "Bulk Distribution", desc: "Dedicated heavy fleet logistics to distribute tons of fuel directly from our yards and warehouses to your boilers." },
               { icon: FileCheck, title: "Procurement & Port Logistics", desc: "Assisting industries in managing fuel deliveries from imports, maintaining consistent stockpiles at our Khamgaon unit." }
             ].map((srv) => (
@@ -265,7 +303,7 @@ const Index = () => {
                     <Leaf className="text-primary" size={24} /> Biomass Briquettes Details
                   </h3>
                   <p className="text-muted-foreground">
-                    Made from agricultural residues such as Sawdust, Groundnut Shell, Soya Husk, Mustard Husk, and Cotton Stalk. Our briquettes provide a reliable, clean-burning solid fuel solution with low moisture and balanced GCV parameters.
+                    Made from high-quality agricultural residues: Soyabean and Corn. Our briquettes provide a reliable, clean-burning solid fuel solution with low moisture and balanced GCV parameters.
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-card p-3 rounded border border-border">
@@ -274,7 +312,7 @@ const Index = () => {
                     </div>
                     <div className="bg-card p-3 rounded border border-border">
                       <h4 className="font-bold text-sm text-primary mb-1">Raw Materials</h4>
-                      <p className="text-xs text-muted-foreground">Sawdust, Groundnut Shell, Soya Husk, Mustard Husk, and Cotton Stalk.</p>
+                      <p className="text-xs text-muted-foreground">Soyabean and Corn.</p>
                     </div>
                   </div>
                 </div>
@@ -320,10 +358,8 @@ const Index = () => {
                     </thead>
                     <tbody>
                       {[
-                        { type: "Sawdust Briquettes", material: "Pure Sawdust", gcv: "4000 (±200)", ash: "Less than 6%", moisture: "6%" },
-                        { type: "Groundnut Shell Briquettes", material: "Groundnut Shell", gcv: "4000 (±200)", ash: "8% to 10%", moisture: "8% to 10%" },
-                        { type: "Mustard Husk Briquettes", material: "Mustard Husk", gcv: "3400 to 3600", ash: "10%", moisture: "10%" },
-                        { type: "Soya Husk Briquettes", material: "Soya Husk", gcv: "3400", ash: "10%", moisture: "10%" }
+                        { type: "Soyabean Briquettes", material: "Soyabean", gcv: "3500 (±200)", ash: "Less than 10%", moisture: "Less than 10%" },
+                        { type: "Corn Briquettes", material: "Corn", gcv: "3500 (±200)", ash: "Less than 10%", moisture: "Less than 10%" }
                       ].map((row, idx) => (
                         <tr key={idx} className="border-b border-border hover:bg-muted/30">
                           <td className="p-4 font-semibold text-foreground">{row.type}</td>
@@ -358,11 +394,11 @@ const Index = () => {
                     </div>
                     <div className="bg-card p-4 rounded border border-border">
                       <h4 className="font-bold text-sm text-primary mb-1">Eco Sourcing</h4>
-                      <p className="text-xs text-muted-foreground">Sawdust, Groundnut Shell, Soya Husk, and Mustard Husk raw inputs.</p>
+                      <p className="text-xs text-muted-foreground">Sawdust and Soya raw inputs.</p>
                     </div>
                   </div>
                 </div>
-                <img src={factoryImg} alt="Agro processing machinery" className="rounded-xl shadow-lg h-[300px] w-full object-cover" />
+                <img src="/biomass-pellets.png" alt="Biomass wood pellets close-up" className="rounded-xl shadow-lg h-[300px] w-full object-cover" />
               </div>
 
               {/* Technical Specifications Table */}
@@ -382,9 +418,7 @@ const Index = () => {
                     <tbody>
                       {[
                         { type: "Sawdust Pellets", material: "Sawdust", gcv: "4000 to 4200", ash: "Less than 5%", moisture: "6%" },
-                        { type: "Groundnut Shell Pellets", material: "Groundnut Shell", gcv: "4000 to 4200", ash: "8%", moisture: "8%" },
-                        { type: "Mustard Husk Pellets", material: "Mustard Husk", gcv: "Above 3600", ash: "10%", moisture: "10%" },
-                        { type: "Soya Husk Pellets", material: "Soya Husk", gcv: "Above 3600", ash: "10%", moisture: "10%" }
+                        { type: "Soya Pellets", material: "Soya Husk", gcv: "Above 3600", ash: "10%", moisture: "10%" }
                       ].map((row, idx) => (
                         <tr key={idx} className="border-b border-border hover:bg-muted/30">
                           <td className="p-4 font-semibold text-foreground">{row.type}</td>
@@ -632,21 +666,21 @@ const Index = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold mb-1 uppercase tracking-wider text-muted-foreground">Full Name</label>
-                    <input required type="text" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="John Doe" />
+                    <input required name="careerName" type="text" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="John Doe" />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold mb-1 uppercase tracking-wider text-muted-foreground">Email Address</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="john@example.com" />
+                    <input required name="careerEmail" type="email" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="john@example.com" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold mb-1 uppercase tracking-wider text-muted-foreground">Contact No.</label>
-                    <input required type="tel" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="+91 ..." />
+                    <input required name="careerPhone" type="tel" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm" placeholder="+91 ..." />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold mb-1 uppercase tracking-wider text-muted-foreground">Desired Position</label>
-                    <select required className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm">
+                    <select required name="careerPosition" className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm">
                       <option>Field Staff (Colliery / Port)</option>
                       <option>Lab Technician</option>
                       <option>Logistics Coordinator</option>
@@ -656,7 +690,7 @@ const Index = () => {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold mb-1 uppercase tracking-wider text-muted-foreground">Cover Message</label>
-                  <textarea required rows={3} className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm resize-none" placeholder="Tell us about yourself..." />
+                  <textarea required name="careerMessage" rows={3} className="w-full px-4 py-3 rounded-md border border-input bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm resize-none" placeholder="Tell us about yourself..." />
                 </div>
                 <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-md font-semibold hover:opacity-90 transition-opacity text-sm">
                   Submit Application
