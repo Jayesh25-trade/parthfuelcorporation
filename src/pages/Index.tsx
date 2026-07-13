@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import CompanyProfileModal from "@/components/CompanyProfileModal";
 import { 
   Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, 
   FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, 
@@ -17,7 +16,6 @@ const Index = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [fabOpen, setFabOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
 
   // Form submission with Resend API direct call & fail-safe mailto fallback
   const handleInquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -219,12 +217,16 @@ ${name}`;
               <a href="#contact" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold text-base hover:opacity-90 flex items-center gap-2">
                 Get a Quote <ChevronRight size={18} />
               </a>
-              <button 
-                onClick={() => setProfileOpen(true)}
-                className="border border-primary-foreground/30 text-primary-foreground px-8 py-4 rounded-md font-semibold text-base hover:bg-primary-foreground/10 flex items-center gap-2"
+              <a href="#products" className="border border-primary-foreground/30 text-primary-foreground px-8 py-4 rounded-md font-semibold text-base hover:bg-primary-foreground/10">
+                Explore Fuels
+              </a>
+              <a 
+                href="/parthfuelcorporation.pdf" 
+                download 
+                className="bg-card text-foreground border border-border px-8 py-4 rounded-md font-semibold text-base hover:bg-muted flex items-center gap-2 shadow-sm"
               >
-                View Company Profile <FileText size={18} />
-              </button>
+                <FileText size={18} className="text-primary" /> Download Profile PDF
+              </a>
             </div>
           </div>
         </div>
@@ -266,14 +268,6 @@ ${name}`;
               <p className="text-muted-foreground text-lg leading-relaxed">
                 By integrating strict quality assessments, direct port linkages, and a versatile logistics model, we facilitate smooth fuel procurement for major boilers, paper mills, textiles, and chemical plants across Maharashtra, Tamil Nadu, and other industrial states.
               </p>
-              <div className="pt-2">
-                <button 
-                  onClick={() => setProfileOpen(true)}
-                  className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold text-sm hover:opacity-90 flex items-center gap-2 w-fit shadow-sm"
-                >
-                  Download Corporate Profile <Download size={16} />
-                </button>
-              </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
                 <div className="p-4 bg-card rounded-lg border border-border">
                   <h4 className="font-bold text-primary mb-1">Vision</h4>
@@ -985,7 +979,6 @@ ${name}`;
           />
         </div>
       )}
-      <CompanyProfileModal isOpen={profileOpen} onClose={() => setProfileOpen(false)} />
     </Layout>
   );
 };
