@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
+import RouteMap from "@/components/RouteMap";
 import { 
   Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, 
   FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, 
-  Phone, Mail, MapPin, ChevronRight, Zap, Award, Globe, Users, FileCheck, X 
+  Phone, Mail, MapPin, ChevronRight, Zap, Award, Globe, Users, FileCheck, X,
+  Plus, HelpCircle
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,58 +15,140 @@ import truckImg from "@/assets/truck-loading.jpg";
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"briquettes" | "pellets" | "indonesian-coal">("briquettes");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [fabOpen, setFabOpen] = useState(false);
 
-  // Form handlers with mailto redirect
-  const handleInquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // Form submission with Resend API direct call & fail-safe mailto fallback
+  const handleInquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("userName");
-    const email = formData.get("userEmail");
-    const phone = formData.get("userPhone");
-    const fuelType = formData.get("fuelType");
-    const message = formData.get("userMsg");
+    const name = formData.get("userName") as string;
+    const email = formData.get("userEmail") as string;
+    const phone = formData.get("userPhone") as string;
+    const fuelType = formData.get("fuelType") as string;
+    const message = formData.get("userMsg") as string;
 
-    const subject = encodeURIComponent(`Fuel Enquiry from ${name} - Parth Fuel Corporation`);
-    const body = encodeURIComponent(
-      `Hello Parth Fuel Corporation,\n\n` +
-      `I would like to make an enquiry regarding fuel solutions.\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n` +
-      `Phone: ${phone}\n` +
-      `Fuel Interest: ${fuelType}\n` +
-      `Monthly Requirement / Message:\n${message}\n\n` +
-      `Regards,\n${name}`
-    );
+    const emailSubject = `Fuel Enquiry from ${name} - Parth Fuel Corporation`;
+    const emailBody = `Hello Parth Fuel Corporation,
 
-    window.location.href = `mailto:parthfuelcorporation23@gmail.com?subject=${subject}&body=${body}`;
-    toast.success("Opening your mail app to send the enquiry...");
-    e.currentTarget.reset();
+I would like to make an enquiry regarding fuel solutions.
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Fuel Interest: ${fuelType}
+Monthly Requirement / Message:
+${message}
+
+Regards,
+${name}`;
+
+    toast.loading("Sending enquiry...", { id: "inquiry" });
+
+    try {
+      // Direct call to Resend API
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer re_FMquLAi5_6w1TpczRh4tZjqdhKMzvZayk"
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          from: "onboarding@resend.dev",
+          to: "parthfuelcorporation23@gmail.com",
+          subject: emailSubject,
+          html: `<p><strong>Name:</strong> ${name}</p>
+                 <p><strong>Email:</strong> ${email}</p>
+                 <p><strong>Phone:</strong> ${phone}</p>
+                 <p><strong>Fuel Interest:</strong> ${fuelType}</p>
+                 <p><strong>Message:</strong></p>
+                 <p>${message.replace(/\n/g, "<br/>")}</p>`,
+          reply_to: email
+        })
+      });
+
+      if (response.ok) {
+        toast.success("Enquiry sent successfully via Resend!", { id: "inquiry" });
+        e.currentTarget.reset();
+      } else {
+        throw new Error("Resend API rejected request");
+      }
+    } catch (error) {
+      console.warn("Direct Resend email submission blocked by browser CORS policy or domain verification. Redirecting to mailto client...", error);
+      
+      // Fail-safe mailto fallback
+      const mailtoUrl = `mailto:parthfuelcorporation23@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.location.href = mailtoUrl;
+      toast.success("Opening your mail app to complete the submission...", { id: "inquiry" });
+      e.currentTarget.reset();
+    }
   };
 
-  const handleCareerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCareerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("careerName");
-    const email = formData.get("careerEmail");
-    const phone = formData.get("careerPhone");
-    const position = formData.get("careerPosition");
-    const message = formData.get("careerMessage");
+    const name = formData.get("careerName") as string;
+    const email = formData.get("careerEmail") as string;
+    const phone = formData.get("careerPhone") as string;
+    const position = formData.get("careerPosition") as string;
+    const message = formData.get("careerMessage") as string;
 
-    const subject = encodeURIComponent(`Job Application: ${position} - ${name}`);
-    const body = encodeURIComponent(
-      `Hello Parth Fuel Corporation Hiring Team,\n\n` +
-      `I would like to submit my application for the following position.\n\n` +
-      `Full Name: ${name}\n` +
-      `Email Address: ${email}\n` +
-      `Contact Number: ${phone}\n` +
-      `Desired Position: ${position}\n` +
-      `Cover Message / Qualifications:\n${message}\n\n` +
-      `Regards,\n${name}`
-    );
+    const emailSubject = `Job Application: ${position} - ${name}`;
+    const emailBody = `Hello Parth Fuel Corporation Hiring Team,
 
-    window.location.href = `mailto:parthfuelcorporation23@gmail.com?subject=${subject}&body=${body}`;
-    toast.success("Opening your mail app to send the job application...");
-    e.currentTarget.reset();
+I would like to submit my application for the following position.
+
+Full Name: ${name}
+Email Address: ${email}
+Contact Number: ${phone}
+Desired Position: ${position}
+Cover Message / Qualifications:
+${message}
+
+Regards,
+${name}`;
+
+    toast.loading("Sending application...", { id: "career" });
+
+    try {
+      // Direct call to Resend API
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer re_FMquLAi5_6w1TpczRh4tZjqdhKMzvZayk"
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          from: "onboarding@resend.dev",
+          to: "parthfuelcorporation23@gmail.com",
+          subject: emailSubject,
+          html: `<p><strong>Position Applied For:</strong> ${position}</p>
+                 <p><strong>Full Name:</strong> ${name}</p>
+                 <p><strong>Email Address:</strong> ${email}</p>
+                 <p><strong>Contact Number:</strong> ${phone}</p>
+                 <p><strong>Message / Qualifications:</strong></p>
+                 <p>${message.replace(/\n/g, "<br/>")}</p>`,
+          reply_to: email
+        })
+      });
+
+      if (response.ok) {
+        toast.success("Application submitted successfully via Resend!", { id: "career" });
+        e.currentTarget.reset();
+      } else {
+        throw new Error("Resend API rejected request");
+      }
+    } catch (error) {
+      console.warn("Direct Resend career submission blocked. Redirecting to mailto client...", error);
+
+      // Fail-safe mailto fallback
+      const mailtoUrl = `mailto:parthfuelcorporation23@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.location.href = mailtoUrl;
+      toast.success("Opening your mail app to complete the submission...", { id: "career" });
+      e.currentTarget.reset();
+    }
   };
 
   const briquetteImages = [
@@ -72,6 +156,29 @@ const Index = () => {
     { src: "/briquettes-sample-2.jpeg", label: "Eco-Agro Briquettes Close-up" },
     { src: "/briquettes-sample-3.jpeg", label: "Industrial Packaging Ready" },
     { src: "/briquettes-sample-4.jpeg", label: "Briquettes Load Shipment" }
+  ];
+
+  const faqs = [
+    {
+      q: "How do biomass briquettes compare with raw imported coal?",
+      a: "Biomass briquettes are a clean, carbon-neutral alternative with a steady GCV of ~3500 kcal/kg. They contain significantly lower sulphur emissions and average only 8-10% ash compared to high-ash coal types, thereby preventing boiler grid fouling and reducing cleaning costs."
+    },
+    {
+      q: "What sizing options are available for industrial boilers?",
+      a: "We offer biomass briquettes in 90mm and 70mm diameters. For automated pneumatic or gravity-fed stoker boilers, we offer biomass pellets in uniform diameters ranging from 6mm to 25mm."
+    },
+    {
+      q: "How does Parth Fuel Corporation prevent moisture during monsoon season?",
+      a: "Our central warehouse in Khamgaon features sealed roof systems and elevated concrete bays to prevent ground moisture absorption. Additionally, all bulk dispatches during monsoon are secured under heavy-duty waterproof tarpaulins."
+    },
+    {
+      q: "What is the typical delivery turnaround time for bulk orders?",
+      a: "For clusters in Maharashtra and adjacent regions, we offer a 24-to-48 hour delivery timeline. For southern deliveries (like Tamil Nadu), we coordinate bulk dispatches via railway rake containers or heavy road fleet networks with live ETA updates."
+    },
+    {
+      q: "How do you ensure transparency in weight and grades?",
+      a: "We operate strictly under our 5-Point Operational Principles. Every delivery includes official mines/weigh-bridge receipts, is secured with single-use numbered security locks, and is backed by a representative batch lab test report."
+    }
   ];
 
   return (
@@ -547,47 +654,12 @@ const Index = () => {
       {/* Our Presence (Logistics & Port map) */}
       <section id="presence" className="py-20 md:py-28 bg-card scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Presence</p>
-              <h2 className="text-3xl md:text-4xl font-extrabold">Serving Key Industrial Hubs</h2>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                With corporate offices in Shegaon, Maharashtra, we have created an expansive logistics and port linkage map. We manage client deliveries across Maharashtra, Tamil Nadu, and surrounding industrial states, utilizing major port entries for importing high-grade Indonesian coal.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
-                {["Shegaon (HQ)", "Khamgaon Unit", "Wani", "Nagpur", "Akola", "Amravati"].map((city) => (
-                  <div key={city} className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border font-semibold text-sm">
-                    <MapPin className="text-primary shrink-0" size={16} />
-                    <span>{city}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2 pt-4">
-                <h4 className="font-bold text-sm uppercase text-foreground">Import & Port Linkages</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["Dharamtar Port", "Jaigad Port", "Dighi Port"].map((port) => (
-                    <span key={port} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
-                      {port}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            {/* Godown Video */}
-            <div className="rounded-xl overflow-hidden shadow-lg bg-black relative group aspect-video">
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="w-full h-full object-cover"
-                src="/godown-video.mp4"
-              />
-              <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider z-10">
-                Godown Operations Video
-              </div>
-            </div>
+          <div className="text-center mb-16">
+            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">Our Presence</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Interactive Logistics & Route Sourcing</h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">We manage bulk shipping routes and inland transit channels to supply your manufacturing clusters securely.</p>
           </div>
+          <RouteMap />
         </div>
       </section>
 
@@ -701,6 +773,47 @@ const Index = () => {
         </div>
       </section>
 
+      {/* FAQ Accordion Section */}
+      <section className="py-20 md:py-28 bg-card">
+        <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
+          <div className="text-center mb-16">
+            <p className="text-primary font-semibold text-sm tracking-wider uppercase mb-3">FAQ</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground mt-3">Answers to critical questions regarding fuel procurement and logistics.</p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <div 
+                key={idx} 
+                className="bg-background rounded-xl border border-border overflow-hidden transition-all shadow-sm"
+              >
+                <button
+                  onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-foreground hover:bg-muted/20 transition-colors text-base"
+                >
+                  <span className="flex items-center gap-3">
+                    <HelpCircle className="text-primary shrink-0" size={20} />
+                    {faq.q}
+                  </span>
+                  <Plus 
+                    className={`text-muted-foreground transition-transform duration-300 shrink-0 ${openFaqIndex === idx ? "rotate-45 text-primary" : ""}`} 
+                    size={20} 
+                  />
+                </button>
+                <div 
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${openFaqIndex === idx ? "max-h-60 opacity-100 border-t border-border" : "max-h-0 opacity-0"}`}
+                >
+                  <p className="p-6 text-sm leading-relaxed text-muted-foreground bg-muted/10">
+                    {faq.a}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Us */}
       <section id="contact" className="py-20 md:py-28 bg-background scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
@@ -776,6 +889,35 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Action Button (FAB) Hub */}
+      <div className="fixed bottom-6 right-6 z-[80] flex flex-col items-end gap-3">
+        {fabOpen && (
+          <div className="flex flex-col gap-2 mb-1 animate-[fade-in_0.2s_ease-out_forwards]">
+            <a 
+              href="tel:+919881125511" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105"
+              title="Call Helpline"
+            >
+              <Phone size={20} />
+            </a>
+            <a 
+              href="mailto:parthfuelcorporation23@gmail.com" 
+              className="bg-accent hover:bg-accent/90 text-accent-foreground w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105"
+              title="Email Us"
+            >
+              <Mail size={20} />
+            </a>
+          </div>
+        )}
+        <button
+          onClick={() => setFabOpen(!fabOpen)}
+          className={`w-14 h-14 rounded-full flex items-center justify-center text-primary-foreground shadow-2xl transition-all duration-300 ${fabOpen ? "bg-muted-foreground hover:bg-muted-foreground/90 rotate-45" : "bg-primary hover:bg-primary/95 animate-pulse"}`}
+          aria-label="Toggle contact buttons"
+        >
+          {fabOpen ? <X size={26} /> : <Phone size={26} />}
+        </button>
+      </div>
 
       {/* Lightbox Modal for Gallery */}
       {lightboxImage && (
