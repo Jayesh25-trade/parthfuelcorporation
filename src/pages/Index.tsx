@@ -16,6 +16,40 @@ const Index = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [fabOpen, setFabOpen] = useState(false);
+  const [selectedCoalSize, setSelectedCoalSize] = useState<"0-50" | "0-10" | "8-25" | "8-20" | "20-50">("8-25");
+
+  const coalSizesDetails: Record<string, { name: string; desc: string; mediaType: "image" | "video"; src: string }> = {
+    "0-50": {
+      name: "0-50 mm (Run of Mine / Mixed Coal)",
+      desc: "A versatile mix of fine coal dust, small granules, and medium-sized chunks up to 50mm. Sourced directly and screened for general industrial combustion and large-scale boilers.",
+      mediaType: "image",
+      src: "/coal-0-50.png"
+    },
+    "0-10": {
+      name: "0-10 mm (Coal Dust / Fine Screenings)",
+      desc: "Finely screened coal particles and dust, ranging from 0mm to 10mm. Ideal for specialized pulverized coal injection systems and stoker boilers requiring fine fuel.",
+      mediaType: "image",
+      src: "/coal-0-10.png"
+    },
+    "8-25": {
+      name: "8-25 mm (Premium Double-Screened Nut Coal)",
+      desc: "Premium grade double-screened coal, sized between 8mm and 25mm. Exceptionally clean and uniform with zero dust, ensuring optimal airflow and maximum thermal efficiency in boilers.",
+      mediaType: "video",
+      src: "/8-25.mp4"
+    },
+    "8-20": {
+      name: "8-20 mm (Uniform Screened Coal)",
+      desc: "Clean, double-screened coal chunks sizing 8mm to 20mm. Very uniform size distribution, free of fines and dust, designed for automated feeding systems and consistent heat output.",
+      mediaType: "image",
+      src: "/coal-8-20.png"
+    },
+    "20-50": {
+      name: "20-50 mm (Large Screened Stove Coal)",
+      desc: "Larger sized coal chunks ranging from 20mm to 50mm (roughly egg-sized). Offers long-lasting combustion with clean burning profiles, ideal for heavy industrial stoker boilers.",
+      mediaType: "image",
+      src: "/coal-20-50.png"
+    }
+  };
 
   // Form submission with Resend API direct call & fail-safe mailto fallback
   const handleInquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -574,52 +608,64 @@ ${name}`;
                 <img src="/industrial-coal.png" alt="Industrial coal storage heap in India" className="rounded-xl shadow-lg h-[300px] w-full object-cover" />
               </div>
 
-              {/* Specs Table */}
-              <div className="space-y-4">
-                <h4 className="font-bold text-lg text-foreground text-center">Indonesian GAR Grades Specifications</h4>
-                <div className="overflow-x-auto rounded-xl border border-border bg-card">
-                  <table className="w-full text-left border-collapse text-xs min-w-[900px]">
-                    <thead>
-                      <tr className="bg-muted text-foreground border-b border-border">
-                        <th className="p-3 font-bold">Grade</th>
-                        <th className="p-3 font-bold">GAD (kcal/kg)</th>
-                        <th className="p-3 font-bold">NAR (kcal/kg)</th>
-                        <th className="p-3 font-bold">Total Moisture (ARB)</th>
-                        <th className="p-3 font-bold">Inherent Moisture (ADB)</th>
-                        <th className="p-3 font-bold">Ash (ARB)</th>
-                        <th className="p-3 font-bold">Volatile Matter (ARB)</th>
-                        <th className="p-3 font-bold">Fixed Carbon</th>
-                        <th className="p-3 font-bold">Sulphur (ADB)</th>
-                        <th className="p-3 font-bold">Ash Fusion Temp</th>
-                        <th className="p-3 font-bold">HGI Index</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        { grade: "INDO GAR 6000", gad: "6500", nar: "5700", tm: "16%", im: "9%", ash: "12%", vm: "39%", fc: "40%", s: "0.9%", aft: "1200°C", hgi: "50" },
-                        { grade: "INDOGAR 5800", gad: "6300", nar: "5500", tm: "18%", im: "10%", ash: "11%", vm: "38%", fc: "41%", s: "0.9%", aft: "1200°C", hgi: "50" },
-                        { grade: "INDO GAR 5400", gad: "5900", nar: "5100", tm: "19%", im: "12%", ash: "8%", vm: "40%", fc: "39%", s: "0.8%", aft: "1200°C", hgi: "50" },
-                        { grade: "INDO GAR 5000", gad: "6000", nar: "4700", tm: "28%", im: "13%", ash: "7%", vm: "42%", fc: "39%", s: "0.8%", aft: "1150°C", hgi: "55" },
-                        { grade: "INDO GAR 4500", gad: "5800", nar: "4200", tm: "32%", im: "13%", ash: "7%", vm: "42%", fc: "38%", s: "0.8%", aft: "1150°C", hgi: "52" },
-                        { grade: "INDO GAR 4200", gad: "5600", nar: "3800", tm: "35%", im: "14%", ash: "7%", vm: "42%", fc: "37%", s: "0.8%", aft: "1150°C", hgi: "54" },
-                        { grade: "INDO GAR 4000", gad: "5500", nar: "3600", tm: "37%", im: "14%", ash: "7%", vm: "42%", fc: "37%", s: "0.7%", aft: "1150°C", hgi: "54" }
-                      ].map((row, idx) => (
-                        <tr key={idx} className="border-b border-border hover:bg-muted/30">
-                          <td className="p-3 font-semibold text-foreground">{row.grade}</td>
-                          <td className="p-3 font-semibold">{row.gad}</td>
-                          <td className="p-3 font-semibold">{row.nar}</td>
-                          <td className="p-3">{row.tm}</td>
-                          <td className="p-3">{row.im}</td>
-                          <td className="p-3">{row.ash}</td>
-                          <td className="p-3">{row.vm}</td>
-                          <td className="p-3">{row.fc}</td>
-                          <td className="p-3">{row.s}</td>
-                          <td className="p-3">{row.aft}</td>
-                          <td className="p-3">{row.hgi}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+              {/* Screening Sizes Showcase */}
+              <div className="space-y-6 pt-6">
+                <h4 className="font-bold text-lg text-foreground text-center">Available Sizing & Screened Options</h4>
+                
+                {/* Size Selector Buttons */}
+                <div className="flex flex-wrap justify-center gap-2 mb-6">
+                  {Object.keys(coalSizesDetails).map((sizeKey) => (
+                    <button
+                      key={sizeKey}
+                      onClick={() => setSelectedCoalSize(sizeKey as any)}
+                      className={`px-5 py-2.5 rounded-lg text-sm font-semibold border transition-all ${selectedCoalSize === sizeKey ? "bg-primary border-primary text-primary-foreground shadow-md" : "bg-card border-border hover:bg-muted text-foreground"}`}
+                    >
+                      {sizeKey} mm
+                    </button>
+                  ))}
+                </div>
+
+                {/* Display Area */}
+                <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    {/* Media container */}
+                    <div className="rounded-lg overflow-hidden bg-black aspect-video relative group border border-border shadow-md">
+                      {coalSizesDetails[selectedCoalSize].mediaType === "video" ? (
+                        <video 
+                          key={selectedCoalSize}
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline 
+                          className="w-full h-full object-cover"
+                          src={coalSizesDetails[selectedCoalSize].src}
+                        />
+                      ) : (
+                        <img 
+                          key={selectedCoalSize}
+                          src={coalSizesDetails[selectedCoalSize].src} 
+                          alt={coalSizesDetails[selectedCoalSize].name} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
+                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider z-10 font-mono">
+                        {selectedCoalSize} mm Sample
+                      </div>
+                    </div>
+
+                    {/* Description container */}
+                    <div className="space-y-4 text-left">
+                      <h5 className="text-xl font-bold text-primary">{coalSizesDetails[selectedCoalSize].name}</h5>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {coalSizesDetails[selectedCoalSize].desc}
+                      </p>
+                      <div className="pt-2">
+                        <span className="inline-block text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">
+                          Ready for Dispatch
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -667,24 +713,15 @@ ${name}`;
               <p className="text-muted-foreground text-base leading-relaxed">
                 With corporate offices in Shegaon, Maharashtra, we have created an expansive logistics and port linkage map. We manage client deliveries across Maharashtra, Tamil Nadu, and surrounding industrial states, utilizing major port entries for importing high-grade Indonesian coal.
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
-                {["Shegaon (HQ)", "Khamgaon Unit", "Wani", "Nagpur", "Akola", "Amravati"].map((city) => (
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                {["Shegaon (HQ)", "Khamgaon Unit", "Akola", "Erandol"].map((city) => (
                   <div key={city} className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border font-semibold text-sm">
                     <MapPin className="text-primary shrink-0" size={16} />
                     <span>{city}</span>
                   </div>
                 ))}
               </div>
-              <div className="space-y-2 pt-4">
-                <h4 className="font-bold text-sm uppercase text-foreground">Import & Port Linkages</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["Dharamtar Port", "Jaigad Port", "Dighi Port"].map((port) => (
-                    <span key={port} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
-                      {port}
-                    </span>
-                  ))}
-                </div>
-              </div>
+
             </div>
             {/* Godown Video */}
             <div className="rounded-xl overflow-hidden shadow-lg bg-black relative group aspect-video">
