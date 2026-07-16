@@ -318,7 +318,7 @@ ${name}`;
               </div>
             </div>
             <div className="lg:col-span-5 relative">
-              <img src="/briquette-factory.png" alt="Biomass briquette manufacturing facility in India" className="rounded-lg shadow-xl w-full object-cover h-[400px]" loading="lazy" />
+              <img src="/briquette-machine.png" alt="Biomass briquette manufacturing machine inside our facility" className="rounded-lg shadow-xl w-full object-cover h-[400px]" loading="lazy" />
               <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground p-5 rounded-lg shadow-lg hidden sm:block">
                 <div className="text-2xl font-bold">900 MT</div>
                 <div className="text-sm text-primary-foreground/80">Monthly Production</div>
