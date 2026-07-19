@@ -1,4 +1,5 @@
 import logo from "@/assets/logo.png";
+import { Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,6 +22,14 @@ const Footer = () => {
             <p className="text-sm text-background/60 leading-relaxed max-w-xs">
               Manufacturer & supplier of biomass briquettes and industrial coal. Sustainable energy solutions for industries across India.
             </p>
+            <div className="flex gap-4 pt-2">
+              <a href="https://www.instagram.com/parthfuelcorporation23/" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors">
+                <Instagram size={20} />
+              </a>
+              <a href="https://www.linkedin.com/in/mahesh-mal-697119422/" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors">
+                <Linkedin size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}

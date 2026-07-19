@@ -4,7 +4,7 @@ import {
   Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, 
   FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, 
   Phone, Mail, MapPin, ChevronRight, Zap, Award, Globe, Users, FileCheck, X,
-  Plus, HelpCircle
+  Plus, HelpCircle, Instagram, Linkedin
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -923,6 +923,14 @@ ${name}`;
                     <div className="text-xs text-muted-foreground font-semibold uppercase">Main Office</div>
                     <span className="text-base font-bold">Parth Fuel Corporation, Shegaon, Maharashtra - 444203, India</span>
                   </div>
+                </div>
+                <div className="flex gap-4 pt-4 border-t border-border mt-4">
+                  <a href="https://www.instagram.com/parthfuelcorporation23/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-semibold text-sm">
+                    <Instagram size={18} className="text-primary" /> Instagram
+                  </a>
+                  <a href="https://www.linkedin.com/in/mahesh-mal-697119422/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-semibold text-sm">
+                    <Linkedin size={18} className="text-primary" /> LinkedIn
+                  </a>
                 </div>
               </div>
             </div>
