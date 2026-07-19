@@ -2,7 +2,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { 
   Leaf, Flame, Droplets, Ruler, Package, Factory, FlaskConical, Shirt, 
-  FileText, Gauge, Truck, ShieldCheck, BadgeCheck, IndianRupee, Clock, 
+  FileText, Gauge, Truck, ShieldCheck, IndianRupee, Clock, 
   Phone, Mail, MapPin, ChevronRight, Zap, Award, Globe, Users, FileCheck, X,
   Plus, HelpCircle, Instagram, Linkedin
 } from "lucide-react";
@@ -765,21 +765,6 @@ ${name}`;
                   <ind.icon className="text-primary" size={18} />
                 </div>
                 <p className="font-semibold text-xs text-foreground">{ind.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              "Siddharth Carbochem Products Ltd",
-              "Rishabh Metal and Chemicals Pvt. Ltd.",
-              "Sahyadri Industries",
-            ].map((client) => (
-              <div key={client} className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-md transition-shadow">
-                <div className="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <BadgeCheck className="text-primary" size={20} />
-                </div>
-                <p className="font-bold text-foreground text-sm">{client}</p>
               </div>
             ))}
           </div>
