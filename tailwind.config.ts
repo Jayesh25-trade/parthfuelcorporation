@@ -14,8 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Boska"', 'serif'],
-        body: ['"DM Sans"', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+        script: ['"Caveat"', 'cursive'],
+        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        body: ['"Plus Jakarta Sans"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -23,6 +26,18 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        parth: {
+          parchment: "#ECE5D8",
+          "parchment-light": "#F7F2E9",
+          "parchment-dark": "#DDD5C4",
+          dark: "#141618",
+          "dark-card": "#1D2024",
+          "dark-border": "#2E3338",
+          orange: "#D87033",
+          "orange-hover": "#C25F24",
+          "text-dark": "#1F2226",
+          "text-muted": "#6E747B",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

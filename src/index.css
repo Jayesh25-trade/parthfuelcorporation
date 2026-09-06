@@ -96,12 +96,17 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-[#141618] text-[#ECE5D8] antialiased;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  h1, h2, h3, h4, .font-serif-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-script {
+    font-family: 'Caveat', cursive;
   }
 
   a, button {
@@ -110,6 +115,19 @@
 }
 
 @layer utilities {
+  /* Deckled paper edge divider effect */
+  .torn-edge-top {
+    mask-image: radial-gradient(circle at 10px -5px, transparent 12px, white 13px);
+    mask-size: 24px 100%;
+  }
+
+  .paper-texture {
+    background-color: #ECE5D8;
+    background-image: radial-gradient(#D6CDBC 0.75px, transparent 0.75px), radial-gradient(#D6CDBC 0.75px, #ECE5D8 0.75px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+  }
+
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }

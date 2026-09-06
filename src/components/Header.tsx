@@ -30,36 +30,55 @@ const Header = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-background/95 backdrop-blur-md shadow-sm" : "bg-transparent"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-[#141618]/95 backdrop-blur-md border-b border-[#2E3338]/60 shadow-lg py-3" : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5"}`}>
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3">
-            <img src={logo} alt="Parth Fuel Corporation" className="h-10 w-10" />
-            <span className={`font-bold text-lg block transition-colors ${scrolled ? "text-foreground" : "text-white"}`}>
-              Parth Fuel Corporation
-            </span>
+        <div className="flex items-center justify-between">
+          <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3 group">
+            <img src={logo} alt="Parth Fuel Corporation" className="h-10 w-10 brightness-110" />
+            <div className="flex flex-col">
+              <span className="font-serif text-lg font-bold tracking-wider text-[#ECE5D8] uppercase group-hover:text-[#D87033] transition-colors">
+                Parth Fuel
+              </span>
+              <span className="text-[10px] tracking-[0.25em] text-[#ECE5D8]/70 uppercase font-sans font-medium">
+                Corporation
+              </span>
+            </div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Nav links matching mockup design */}
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className={`text-sm font-medium tracking-wide hover:opacity-70 ${scrolled ? "text-foreground" : "text-white"}`}
+                className="text-xs tracking-wider uppercase font-semibold text-[#ECE5D8]/85 hover:text-[#D87033] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#D87033] hover:after:w-full after:transition-all"
               >
                 {link.label}
               </button>
             ))}
-            <button
-              onClick={() => scrollTo("#contact")}
-              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:opacity-90"
-            >
-              Get Quote
-            </button>
           </nav>
 
+          {/* Right side CTA Badge matching mockup */}
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="text-right border-r border-[#ECE5D8]/20 pr-4">
+              <span className="block text-[9px] font-bold tracking-[0.2em] uppercase text-[#D87033]">
+                FUELLING
+              </span>
+              <span className="block text-[10px] font-serif tracking-[0.15em] uppercase text-[#ECE5D8]/90">
+                A CLEANER TOMORROW
+              </span>
+            </div>
+            <button
+              onClick={() => scrollTo("#contact")}
+              className="bg-[#D87033] text-[#ECE5D8] px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-[#C25F24] transition-all shadow-md flex items-center gap-2 group"
+            >
+              <span>Get Quote</span>
+              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+            </button>
+          </div>
+
           <button
-            className={`md:hidden p-2 ${scrolled ? "text-foreground" : "text-white"}`}
+            className="md:hidden p-2 text-[#ECE5D8]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -69,20 +88,20 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden bg-background border-b border-border overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+      <div className={`md:hidden bg-[#141618] border-b border-[#2E3338] overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
         <nav className="container mx-auto px-6 py-4 flex flex-col gap-3">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => scrollTo(link.href)}
-              className="text-left text-foreground py-2 text-base font-medium hover:text-primary"
+              className="text-left text-[#ECE5D8] py-2 text-sm font-semibold uppercase tracking-wider hover:text-[#D87033]"
             >
               {link.label}
             </button>
           ))}
           <button
             onClick={() => scrollTo("#contact")}
-            className="bg-primary text-primary-foreground px-5 py-3 rounded-md text-sm font-semibold mt-2"
+            className="bg-[#D87033] text-[#ECE5D8] px-5 py-3 rounded-md text-xs font-semibold uppercase tracking-wider mt-2"
           >
             Get Quote
           </button>
